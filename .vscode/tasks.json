@@ -1,0 +1,27 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cppbuild",
+			"label": "C/C++: g++ build active file",
+			"command": "/usr/bin/g++",
+			"args": [
+				"-g",
+				"$~/Desktop/software/cpp_training/Projects/Fantasy-Dueling-Game/*.cpp",
+				"-o",
+				"$~/Desktop/software/cpp_training/Projects/Fantasy-Dueling-Game/main"
+			],
+			"options": {
+				"cwd": "$~/Desktop/software/cpp_training/Projects/Fantasy-Dueling-Game"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"detail": "compiler: /usr/bin/g++"
+		}
+	]
+}
