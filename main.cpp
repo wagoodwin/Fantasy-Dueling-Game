@@ -1,35 +1,43 @@
  #include <iostream>
 
-// // main idea: human vs computer. take turns doing attacks and see who wins
-// // in int main or somewhere, have a big switch statement that has all of the 
-// // player's options. For now, we'll have attack or defend.
+// main idea: human vs computer. take turns doing attacks and see who wins
+// in int main or somewhere, have a big switch statement that has all of the 
+// player's options. For now, we'll have attack or defend.
 
-// // We need to structure the game on a per-round basis. In a round, the player 
-// // chooses an action, and then the computer chooses an action. The player's and 
-// // and the computer's actions should have an effect on each other's hps.
+// We need to structure the game on a per-round basis. In a round, the player 
+// chooses an action, and then the computer chooses an action. The player's and 
+// and the computer's actions should have an effect on each other's hps.
 
-// // After each turn, we need to check everyone's hp. A turn is defined as an
-// // action by one dueler. We'll have these options:
+// After each turn, we need to check everyone's hp. A turn is defined as an
+// action by one dueler. We'll have these options:
 
-// // computer and player hp > 0
-// // computer hp > 0, player hp <= 0
-// // computer hp <= 0, player hp >= 0
-// // computer and player hp <= 0
+// computer and player hp > 0
+// computer hp > 0, player hp <= 0
+// computer hp <= 0, player hp >= 0
+// computer and player hp <= 0
 
-// // We could make a function that takes in hps and returns one of these options as different ints.
-// // From there, we could build a function with a switch statement that takes in these ints and executes different
-// // functions as a result. i.e., case 1 returns true and continues the game, case 2 
-// // ends the game and gives the player money or something, etc
+// We could make a function that takes in hps and returns one of these options as different ints.
+// From there, we could build a function with a switch statement that takes in these ints and executes different
+// functions as a result. i.e., case 1 returns true and continues the game, case 2 
+// ends the game and gives the player money or something, etc
 
 
 class Dueler
 {
-private:
+protected:
     int m_hp {};
     int m_action {};
 public:
 
-    Dueler(int hp = 5): m_hp{hp} 
+    // Absolute madness. If I don't initialize this constructor, the 
+    // derived classes won't have any hp. IOW, the derived classes aren't using
+    // their constructors??? I'm misunderstanding something about inheritance.
+    // UPDATE: it might have to do with the copy constructure. Research tomorrow.
+
+    // IT ALSO MIGHT JUST HAVE TO DO WITH OVERLOADING THE ASSIGNMENT OPERATOR. RESEARCH THIS. 
+
+
+    Dueler(int hp = 1): m_hp{hp} 
     {
 
     }
@@ -49,37 +57,72 @@ public:
         m_hp = m_hp - damage;
     }
 
-    void heal(int healing)
+    // void heal(int healing)
+    // {
+    //     m_hp = m_hp + healing;
+    // }
+
+    // pure virtual function. A virtual function is a function defined in a 
+    // base class with the intention of being redefined in a derived class. 
+    // A pure virtual function demands to be redefined in all derived classes, and
+    // you'll get errors if you don't. 
+    // We'll never make an object called "Dueler:" it's simply a template on which
+    // we define other stuff. As such, this function is a pure and virtual.
+    virtual void heal(int healing) = 0;
+
+    virtual void dodge() = 0;
+
+
+    // overloaded assignment operator:
+    Dueler& operator=(const Dueler& dueler)
     {
-        std::cout << "oogabooga" << "\n";
-        m_hp = m_hp + healing;
+        m_hp = dueler.m_hp;
+        return *this;
     }
 
 };
 
-// we want to inherit basic stuff like getters and setters, but we don't want to inherit 
-// stuff like HP, as HP will be different between duelers.
+
 class Player: public Dueler
 {
 private:
-    int m_hp {};
-    int m_action {};
+    // PSA: doing int m_hp{} here will result in heal() not doing anything 
+    // (i.e., not increasing player.m_hp). Honestly, I'm not completely sure why,
+    // but just don't do it. The whole point of inheritance is to INHERIT members
+    // from parent classes, so it doesn't make sense to just redefine the same 
+    // data member here.
+
+    // As such, the better solution is to use 'protected' in the base class for 
+    // the members you want to be inherited and leave it at that.
 public:
 
-    Player(int hp = 5): m_hp{hp} 
+    Player(int hp = 1): Dueler{hp} 
     {
 
     }
-    // very bizzarre scenes: when we include this function, the player doesn't actually heal.
-    // The player does heal when we don't include it-- that is, player inherits heal() from 
-    // Dealer and it works, but player's own heal function doesn't work. Big thing we gotta resolve. 
 
-    void heal(int healing)
+    void heal(int healing) override
     {
         std::cout << "The player is casting a healing spell to add "
         << healing << " hp" << "\n"; 
-        m_hp = m_hp + healing; // this line insn't working
+        m_hp = m_hp + healing; // this line isn't working
+        // Dueler::heal(healing); // this works, but I'm not sure if it's fixing the root problem
     }
+
+
+    void dodge() override
+    {
+        // Idea: if you dodge successfully, you throw off your attacker,
+        // giving you two moves consecutively. 
+        // If you fail, the monster does extra damage. 
+
+        // For now, we won't add the randomness aspect: we'll just have 
+        // the player get two free moves. 
+
+
+
+    }
+
 
 
 };
@@ -88,11 +131,22 @@ public:
 class Computer: public Dueler 
 {
 private:
-    int m_hp {};
-    int m_action {};
 public:
 
-    Computer(int hp = 5): m_hp{hp}
+    Computer(int hp = 1): Dueler{hp}
+    {
+
+    }
+
+    void heal(int healing) override
+    {
+        std::cout <<  "\n" << "The computer is casting a healing spell to add "
+        << healing << " hp" << "\n"; 
+        m_hp = m_hp + healing; // this line insn't working
+    }
+
+
+    void dodge() override
     {
 
     }
@@ -173,44 +227,65 @@ int gameStatus(int healthCheck, Player& player, Computer& computer)
 
 }
 
+
+bool checkGameStatus(Player& player, Computer& computer)
+{
+    int gameCondition = healthCheck(player,computer); 
+    if(gameStatus(gameCondition, player, computer) != 1)
+        return false;
+    else
+        return true;
+
+}
+
+
+Player chooseAction(Player& player, Computer& computer)
+{
+
+    char input{};
+    std::cout << "Choose your action. Press 'a' to attack," 
+    << " 'd' to dodge, or 'h' to heal." << "\n";
+    std::cin >> input;
+
+    switch(input)
+    {
+        case 'a': playerTurn(player, computer);  break;
+        case 'd': std::cout << "dodge";          break;
+        case 'h': player.heal(2);                break; 
+
+        default: 
+            std::cout << "That command isn't recognized. ";
+            std::cout << "Your action defaults to attack.";
+            playerTurn(player, computer);
+        break;
+    }
+
+    return player;
+
+}
+
+
 int main()
 {
     // initialize player and computer
     Player player {};
     Computer computer {};
-    char input;
+    char input {};
 
     int gameCondition{1};
 
     // game should continue while the player is still alive
-    while(gameStatus(gameCondition, player, computer) == 1)
+    while(true)
     {
-        std::cout << "Choose your action. Press 'a' to attack," 
-        << " 'd' to dodge, or 'b' to block." << "\n";
-        std::cin >> input;
-
-        switch(input)
-        {
-            case 'a': playerTurn(player, computer);  break;
-            case 'd': std::cout << "dodge";          break;
-            case 'b': player.heal(5);                break; // for some reason, player's HP isn't increasing. Not an issue with switch()
-
-            default: 
-                std::cout << "That command isn't recognized. ";
-                std::cout << "Your action defaults to attack.";
-                playerTurn(player, computer);
-            break;
-        }
-
-        // check the game status after each turn
-        gameCondition = healthCheck(player,computer); 
-        if(gameStatus(gameCondition, player, computer) != 1)
-            break;
+        chooseAction(player, computer);
+        if (checkGameStatus(player, computer) == false) break;
 
         std::cout << "Computer's turn:";
         computerTurn(player, computer);
-        // gameCondition = healthCheck(player,computer);
-        // gameStatus(gameCondition, player, computer);
+        if (checkGameStatus(player, computer) == false) break;
+        // Need to check game status after both turns. Otherwise,
+        // it's possible for a player to still be able to act after
+        // dying
     }
 
     std::cout << "The battle is over" << "\n";
@@ -218,6 +293,9 @@ int main()
 
     return 0;
 }
+
+
+
 
 //TODO: add in a turn component. The player should be prompted to attack, and then 
 // stuff should continue. Also, you have some overridden functions, so implementing some
@@ -231,3 +309,8 @@ int main()
 
 // After that, make multiple weapons. Make a class called Weapon. Then derive stuff (swords, maces)
 // from Weapon.Also, using examples from learncpp.com, implement some sort of virtual function mechanic.
+
+
+
+
+
