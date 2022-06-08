@@ -27,15 +27,7 @@ class Dueler
 protected:
     int m_hp {};
     int m_action {};
-public:
-
-    // Absolute madness. If I don't initialize this constructor, the 
-    // derived classes won't have any hp. IOW, the derived classes aren't using
-    // their constructors??? I'm misunderstanding something about inheritance.
-    // UPDATE: it might have to do with the copy constructure. Research tomorrow.
-
-    // IT ALSO MIGHT JUST HAVE TO DO WITH OVERLOADING THE ASSIGNMENT OPERATOR. RESEARCH THIS. 
-
+public: 
 
     Dueler(int hp = 1): m_hp{hp} 
     {
@@ -70,17 +62,33 @@ public:
     // we define other stuff. As such, this function is a pure and virtual.
     virtual void heal(int healing) = 0;
 
-    virtual void dodge() = 0;
+    //virtual void dodge(Player& player, Computer& computer) = 0;
 
 
     // overloaded assignment operator:
-    Dueler& operator=(const Dueler& dueler)
-    {
-        m_hp = dueler.m_hp;
-        return *this;
-    }
+    // Dueler& operator=(const Dueler& dueler)
+    // {
+    //     m_hp = dueler.m_hp;
+    //     return *this;
+    // }
 
 };
+
+// class Player: public Dueler
+// {
+
+// };
+
+// class Computer: public Dueler
+// {
+
+// };
+
+
+// if we have stufff from Computer we want to use in Player, we need to 
+// forward declare both classes.
+class Player;
+class Computer;
 
 
 class Player: public Dueler
@@ -109,23 +117,45 @@ public:
         // Dueler::heal(healing); // this works, but I'm not sure if it's fixing the root problem
     }
 
-
-    void dodge() override
+    void dodge(Player& player, Computer& computer)
     {
-        // Idea: if you dodge successfully, you throw off your attacker,
-        // giving you two moves consecutively. 
-        // If you fail, the monster does extra damage. 
+    // Idea: if you dodge successfully, you throw off your attacker,
+    // giving you two moves consecutively. 
+    // If you fail, the monster does extra damage. 
 
-        // For now, we won't add the randomness aspect: we'll just have 
-        // the player get two free moves. 
+    // For now, we won't add the randomness aspect: we'll just have 
+    // the player get two free moves. 
+
+    std::cout << "You've dodged the monster's attack, leaving it open " <<
+    "for a counter. With this extra time, you can deploy a boosted attack " <<
+    "or heal." << "\n";
+
+    //We'll also just assume the player healed.
+
+    // char inputDodge{};
+    // std::cout << "Select 'a' to attack or 'h' to heal:" << "\n";
+
+    // std::cin >> inputDodge;
+
+    heal(2);
+
+
+    // player.heal(2);
+
 
 
 
     }
 
 
+  
+
+
 
 };
+
+
+
 
 
 class Computer: public Dueler 
@@ -146,7 +176,7 @@ public:
     }
 
 
-    void dodge() override
+    void dodge(Player& player, Computer& computer) 
     {
 
     }
@@ -249,9 +279,11 @@ Player chooseAction(Player& player, Computer& computer)
 
     switch(input)
     {
-        case 'a': playerTurn(player, computer);  break;
-        case 'd': std::cout << "dodge";          break;
-        case 'h': player.heal(2);                break; 
+        case 'a': playerTurn(player, computer);     break;
+        case 'd': std::cout << "dodge";
+                  player.dodge(player, computer); 
+                break;
+        case 'h': player.heal(2);                   break; 
 
         default: 
             std::cout << "That command isn't recognized. ";
