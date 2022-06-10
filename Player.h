@@ -24,9 +24,9 @@ public:
     Player(int hp);
     Player();
     void heal(int healing) override;
-    void dodge(Player& player, Computer& computer);
+    void dodge(Dueler& dueler);
 
-    void attack(Dueler& dueler) override;
+    void attack(Dueler& dueler, int damage) override;
 
 
 };

@@ -1,6 +1,6 @@
 # fdg = Fantasy Dueling Game
-fdg: main.o Dueler.o Player.o Computer.o GameProcedures.o
-	g++ -g main.o Dueler.o Player.o Computer.o GameProcedures.o -o fdg
+fdg: main.o Dueler.o Player.o Computer.o GameProcedures.o randUtils.o
+	g++ -g main.o Dueler.o Player.o Computer.o GameProcedures.o randUtils.o -o fdg
 
 main.o: main.cpp
 	g++ -g -c main.cpp
@@ -16,6 +16,9 @@ Computer.o: Computer.cpp
 
 GameProcedures.o: GameProcedures.cpp
 	g++ -g -c GameProcedures.cpp
+
+randUtils.o: randUtils.cpp
+	g++ -g -c randUtils.cpp
 
 # *.o means 'select everything with extension .o'.
 # We're also removing our executable file FDG

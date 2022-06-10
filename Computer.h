@@ -5,7 +5,7 @@
 #include "Player.h"
 #include <iostream>
 
-
+// NEED TO IMPLEMENT ATTACK COMMAND FOR COMPUTER
 class Computer: public Dueler 
 {
 private:

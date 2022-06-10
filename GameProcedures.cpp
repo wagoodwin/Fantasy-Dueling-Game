@@ -94,22 +94,40 @@ Player chooseAction(Player& player, Computer& computer)
     char input{};
     std::cout << "Choose your action. Press 'a' to attack," 
     << " 'd' to dodge, or 'h' to heal." << "\n";
-    std::cin >> input;
 
-    switch(input)
+    // using a while loop instead of a switch statement so we can loop back to the 
+    // beginning if the user mis-inputs. Switch statements aren't iterative, so 
+    // we can't implement this feature with them.
+    while(true)
     {
-        case 'a': player.attack(computer);     break;
-        case 'd': std::cout << "dodge";
-                  player.dodge(player, computer); 
-                break;
-        case 'h': player.heal(5);                   break; 
+        std::cin >> input;
+        if (input == 'a')
+        {
+            player.attack(computer,10);
+            break;
+        }
+        else if (input == 'd')
+        {
+            player.dodge(computer);
+            break;
+        }
+        else if (input == 'h')
+        {
+            player.heal(5);
+            break;
+        }
+        else
+        {
+            std::cout << "That command isn't recognized. Please reselect:" << "\n";
+        }
 
-        default: 
-            std::cout << "That command isn't recognized. ";
-            std::cout << "Your action defaults to attack.";
-            playerTurn(player, computer);
-        break;
     }
+    // Weird "bug" (?): you can buffer your inputs. That is, if you press 'a'
+    // n times in the command line, the n engagements will happen at once. 
+    // It's not cheating, as both duelers are still taking turns, and you
+    // can scroll back and still see those turns. However, it's not ideal 
+    // in terms of quality of life.
+
 
     return player;
 

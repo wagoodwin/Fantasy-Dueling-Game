@@ -1,6 +1,8 @@
 #include "Player.h"
 #include "Dueler.h"
+#include "randUtils.h"
 #include <iostream>
+
 
 
 Player::Player(int hp): Dueler{hp} 
@@ -26,7 +28,16 @@ void Player::heal(int healing)
     // m_hp = m_hp + healing; 
 }
 
-void Player::dodge(Player& player, Computer& computer)
+void Player::attack(Dueler& dueler, int damage)
+{
+    damage = randUtils::getRand(damage, 5);
+    dueler.takeHP(damage);
+    std::cout << "its morbin time" << "\n";
+
+}
+
+
+void Player::dodge(Dueler& dueler)
 {
     // Idea: if you dodge successfully, you throw off your attacker,
     // giving you two moves consecutively. 
@@ -49,6 +60,7 @@ void Player::dodge(Player& player, Computer& computer)
         std::cin >> inputDodge;
         if (inputDodge == 'a')
         {
+            attack(dueler, 25);
             break;
 
         }
@@ -67,10 +79,4 @@ void Player::dodge(Player& player, Computer& computer)
 
 }
 
-void Player::attack(Dueler& dueler)
-{
-    dueler.takeHP(2);
-    std::cout << "its morbin time" << "\n";
-
-}
 

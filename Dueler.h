@@ -1,7 +1,7 @@
 #ifndef DUELER_H
 #define DUELER_H
 
-#include <random> // for std::mt199937, std::random_device, std::normal_distribution
+
 
 // For PRNG. See .cpp file for more details.
 
@@ -11,12 +11,10 @@ protected:
     int m_hp;
     int m_action;
 public: 
-
-
     Dueler(int hp);
     Dueler();
     void takeHP(int damage);
-    virtual void attack(Dueler& dueler);
+    virtual void attack(Dueler& dueler, int damage);
     int showHP() const; // const because getHP shouldn't alter hp
   
     // pure virtual function. A virtual function is a function defined in a 
