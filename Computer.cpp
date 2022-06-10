@@ -11,7 +11,7 @@ Computer::Computer(int hp): Dueler{hp}
 
 Computer::Computer()
 {
-    m_hp = 6;
+    m_hp = 45;
 }
 
 // override only goes in function declaration

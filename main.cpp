@@ -59,7 +59,7 @@ int main()
 
 
 
-//TODO: add in a turn component. The player should be prompted to attack, and then 
+// TODO: add in a turn component. The player should be prompted to attack, and then 
 // stuff should continue. Also, you have some overridden functions, so implementing some
 // virtual functions might be a good exercise. Also, shoehoern in const and constexpr for variable initializtion.
 // other stuff to include: enums, arrays
@@ -77,6 +77,12 @@ int main()
 // SECOND thing: start to add randomness to attacks-- now, attacks do damage within a range.
 // That also means probably upping the hp and also switching hp values to doubles instead of ints.
 // THIRD (or do this second) thing: finish the dodge mechanic so you can choose to dodge or heal
+
+
+// TODO:
+// FIRST THING: add randomness to attacks-- now, attacks occur on a distribution. Might need to, again, turn everything into floats
+// SECOND THING: Add some logic to the computer-- like, if it's about to die, it tries to heal.
+//               It should also be able to dodge and have the same rewards. 
 
 
 

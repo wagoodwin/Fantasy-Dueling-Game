@@ -10,7 +10,7 @@ Player::Player(int hp): Dueler{hp}
 
 Player::Player() // default constructor
 {
-    m_hp = 1;
+    m_hp = 100;
 }
 
 
@@ -19,8 +19,11 @@ void Player::heal(int healing)
 {
     std::cout << "The player is casting a healing spell to add "
     << healing << " hp" << "\n"; 
-    m_hp = m_hp + healing; // this line isn't working
-    // Dueler::heal(healing); // this works, but I'm not sure if it's fixing the root problem
+    Dueler::heal(healing);
+    // Based on the input healing we get, we generate a normal distribution where
+    // the mean is the healing that was input. Then, we randomly sample that 
+    // distribution to get our healing value.
+    // m_hp = m_hp + healing; 
 }
 
 void Player::dodge(Player& player, Computer& computer)
@@ -38,14 +41,36 @@ void Player::dodge(Player& player, Computer& computer)
 
     //We'll also just assume the player healed.
 
-    // char inputDodge{};
-    // std::cout << "Select 'a' to attack or 'h' to heal:" << "\n";
+    char inputDodge{};
+    std::cout << "Select 'a' to attack or 'h' to heal:" << "\n";
 
-    // std::cin >> inputDodge;
+    while(true)
+    {
+        std::cin >> inputDodge;
+        if (inputDodge == 'a')
+        {
+            break;
 
-    heal(2);
+        }
+        else if (inputDodge == 'h')
+        {
+            heal(2);
+            break;
+        }
+        else
+        {
+            std::cout << "Unrecognized input. Select 'a' to attack " <<
+            "or 'h' to heal: " << "\n";
+        }
 
-
-    // player.heal(2);
+    }
 
 }
+
+void Player::attack(Dueler& dueler)
+{
+    dueler.takeHP(2);
+    std::cout << "its morbin time" << "\n";
+
+}
+

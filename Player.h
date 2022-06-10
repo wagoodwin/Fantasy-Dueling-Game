@@ -26,6 +26,9 @@ public:
     void heal(int healing) override;
     void dodge(Player& player, Computer& computer);
 
+    void attack(Dueler& dueler) override;
+
+
 };
 
 #endif

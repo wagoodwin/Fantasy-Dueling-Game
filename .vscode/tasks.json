@@ -9,7 +9,7 @@
 				"-g",
 				"$~/Desktop/software/cpp_training/Projects/Fantasy-Dueling-Game/*.cpp",
 				"-o",
-				"$~/Desktop/software/cpp_training/Projects/Fantasy-Dueling-Game/main"
+				"$~/Desktop/software/cpp_training/Projects/Fantasy-Dueling-Game/fdg"
 			],
 			"options": {
 				"cwd": "$~/Desktop/software/cpp_training/Projects/Fantasy-Dueling-Game"

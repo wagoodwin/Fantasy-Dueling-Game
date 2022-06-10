@@ -98,11 +98,11 @@ Player chooseAction(Player& player, Computer& computer)
 
     switch(input)
     {
-        case 'a': playerTurn(player, computer);     break;
+        case 'a': player.attack(computer);     break;
         case 'd': std::cout << "dodge";
                   player.dodge(player, computer); 
                 break;
-        case 'h': player.heal(2);                   break; 
+        case 'h': player.heal(5);                   break; 
 
         default: 
             std::cout << "That command isn't recognized. ";
