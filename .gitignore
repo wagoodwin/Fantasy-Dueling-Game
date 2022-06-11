@@ -1,0 +1,8 @@
+# ignore all output files
+*.o
+
+# ignore all JSON files
+*.JSON
+
+# ignore executable 
+fdg
