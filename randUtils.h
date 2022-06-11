@@ -14,6 +14,9 @@ namespace randUtils
 
     double getRand(double mean, double stdev);
 
+    void delayMillis(int millis);
+    void delayMillisNoDots(int millis);
+
 
 }
 

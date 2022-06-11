@@ -3,6 +3,10 @@
 #include "Computer.h"
 #include <iostream>
 
+
+
+
+
 void playerTurn(Player& player, Computer& computer)
 {
     computer.takeHP(1);
@@ -11,7 +15,7 @@ void playerTurn(Player& player, Computer& computer)
 
 void computerTurn(Player& player, Computer& computer)
 {
-    player.takeHP(1);
+    computer.attack(player, 10);
 }
 
 
@@ -55,21 +59,21 @@ int gameStatus(int healthCheck, Player& player, Computer& computer)
             return 1;
             break;
         case 2:
-            std::cout << "The monster has been slain" << "\n";
+            std::cout << "\n" << "The monster has been slain";
             // add looting function here in future 
             // Will add money to player object here with addmoney()
             return 2;
             break;
         case 3:
-            std::cout << "The player has been slain" << "\n";
+            std::cout << "\n" << "The player has been slain";
             return 3;
             break;
         case 4:
-            std::cout << "Both duelers have been slain" << "\n";
+            std::cout << "\n" << "Both duelers have been slain";
             return 4;
             break;
         default:
-            std::cout << "error: received an int not 1,2,3,4" << "\n";
+            std::cout << "\n"<< "error: received an int not 1,2,3,4";
             return 5;
             break;
     }
@@ -92,8 +96,8 @@ Player chooseAction(Player& player, Computer& computer)
 {
 
     char input{};
-    std::cout << "Choose your action. Press 'a' to attack," 
-    << " 'd' to dodge, or 'h' to heal." << "\n";
+    std::cout << "\n" << "PLAYER TURN. Press 'a' to attack," 
+    << " 'd' to dodge, or 'h' to heal. ";
 
     // using a while loop instead of a switch statement so we can loop back to the 
     // beginning if the user mis-inputs. Switch statements aren't iterative, so 
@@ -113,7 +117,7 @@ Player chooseAction(Player& player, Computer& computer)
         }
         else if (input == 'h')
         {
-            player.heal(5);
+            player.heal(10);
             break;
         }
         else

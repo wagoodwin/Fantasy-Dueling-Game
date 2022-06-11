@@ -30,9 +30,19 @@ void Player::heal(int healing)
 
 void Player::attack(Dueler& dueler, int damage)
 {
-    damage = randUtils::getRand(damage, 5);
-    dueler.takeHP(damage);
-    std::cout << "its morbin time" << "\n";
+    int hit = randUtils::getRand(damage, 5);
+    if (hit >= damage + 5)
+        std::cout << "The player lands a brutal strike on the monster, "
+        << "doing " << hit << " hp of damage" << "\n";
+    else if (hit <= damage - 5)
+        std::cout << "The player's attack grazes the monster, doing only "
+        << hit << " hp of damage" << "\n";
+    else
+        std::cout << "The player delivers a strike of " << hit << " damage"
+        << " on the monster." << "\n";
+
+    dueler.takeHP(hit);
+    
 
 }
 
@@ -60,7 +70,7 @@ void Player::dodge(Dueler& dueler)
         std::cin >> inputDodge;
         if (inputDodge == 'a')
         {
-            attack(dueler, 25);
+            attack(dueler, 17);
             break;
 
         }

@@ -15,6 +15,10 @@ public:
     Computer(); // default constructor
 
     void heal(int healing) override;
+
+
+    void attack(Dueler& dueler, int damage) override;
+
     void dodge(Player& player, Computer& computer);
 
 };

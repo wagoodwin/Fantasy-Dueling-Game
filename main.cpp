@@ -2,7 +2,9 @@
  #include "Player.h"
  #include "Computer.h"
  #include "GameProcedures.h"
+ #include "randUtils.h"
  #include <iostream>
+
  
 
 // main idea: human vs computer. take turns doing attacks and see who wins
@@ -40,9 +42,13 @@ int main()
     while(true)
     {
         chooseAction(player, computer);
+
         if (checkGameStatus(player, computer) == false) break;
 
-        std::cout << "Computer's turn:";
+        randUtils::delayMillisNoDots(2500);
+        randUtils::delayMillis(250);
+
+        std::cout << "\n" << "COMPUTER'S TURN:" << "\n";
         computerTurn(player, computer);
         if (checkGameStatus(player, computer) == false) break;
         // Need to check game status after both turns. Otherwise,
@@ -50,7 +56,7 @@ int main()
         // dying
     }
 
-    std::cout << "The battle is over" << "\n";
+    std::cout << ", and the battle is over." << "\n\n";
 
 
     return 0;
@@ -84,6 +90,24 @@ int main()
 // SECOND THING: Add some logic to the computer-- like, if it's about to die, it tries to heal.
 //               It should also be able to dodge and have the same rewards. 
 
+
+// TODO: 
+// FIRST THING: add a .gitignore file and make sure all .o files are not tracked. Also get rid of them
+// from your github. DONE 
+// SECOND THING: Add some more commentary to explain who's attacking and whatnot
+// THIRD THING: Figure out CMake
+// FOURTH THING: Give the computer the same functionality as the computer. 
+
+// Reach goals: Add logic to the computer. If it's close to death, have it heal or dodge.
+//              And if it dodges, have it heal if its health is lower than a threshold. Or 
+//              have it do damage if the player is close to death. That would be enough for now.
+//              Big reach: add a timer to force the player to act more quickly. Also, add more attacks
+//              for the player: when the player chooses to attack, they have more options between sword, mace, etc.
+
+
+// Other stuff to consider: to remove the hardcoding element inherent in just choosing numbers for 
+// attacks, we should make an attack damage/ ability power metric for the player and computer-- all 
+// attacks would be based on that attack damage or ability power
 
 
 
