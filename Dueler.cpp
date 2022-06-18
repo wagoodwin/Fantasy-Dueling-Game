@@ -37,6 +37,3 @@ void Dueler::heal(int healing)
     m_hp = m_hp + healing;
 
 }
-
-
-

@@ -12,7 +12,7 @@ Player::Player(int hp): Dueler{hp}
 
 Player::Player() // default constructor
 {
-    m_hp = 100;
+    m_hp = 50;
 }
 
 
