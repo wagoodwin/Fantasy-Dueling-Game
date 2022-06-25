@@ -1,6 +1,6 @@
 #include "GameProcedures.h"
-#include "Player.h"
-#include "Computer.h"
+#include "entities/Player.h"
+#include "entities/Computer.h"
 #include <iostream>
 
 

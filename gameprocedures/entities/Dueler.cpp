@@ -1,5 +1,5 @@
 #include "Dueler.h"
-#include "randUtils.h"
+#include "randutils/randUtils.h"
 #include <iostream>
 
 
@@ -37,6 +37,3 @@ void Dueler::heal(int healing)
     m_hp = m_hp + healing;
 
 }
-
-
-
