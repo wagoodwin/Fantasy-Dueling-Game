@@ -1,8 +1,8 @@
- #include "Dueler.h"
- #include "Player.h"
- #include "Computer.h"
- #include "GameProcedures.h"
- #include "randUtils.h"
+ #include "gameprocedures/entities/Dueler.h"
+ #include "gameprocedures/entities/Player.h"
+ #include "gameprocedures/entities/Computer.h"
+ #include "gameprocedures/GameProcedures.h"
+ #include "gameprocedures/entities/randutils/randUtils.h"
  #include <iostream>
 
  

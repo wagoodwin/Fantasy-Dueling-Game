@@ -1,8 +1,8 @@
 #ifndef GAMEPROCEDURES_H
 #define GAMEPROCEDURES_H
 
-#include "Player.h"
-#include "Computer.h"
+#include "entities/Player.h"
+#include "entities/Computer.h"
 #include <iostream>
 
 // Basic attack commands here (will probably be phased out)

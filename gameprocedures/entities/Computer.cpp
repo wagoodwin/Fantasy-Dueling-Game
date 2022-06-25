@@ -1,7 +1,7 @@
 
 #include "Computer.h"
 #include "Player.h"
-#include "randUtils.h"
+#include "randutils/randUtils.h"
 #include <iostream>
 
 

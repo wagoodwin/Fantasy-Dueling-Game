@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "Dueler.h"
-#include "randUtils.h"
+#include "randutils/randUtils.h"
 #include <iostream>
 
 

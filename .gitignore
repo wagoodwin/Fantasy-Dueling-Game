@@ -6,3 +6,6 @@
 
 # ignore executable 
 fdg
+
+# ignore everything in the build folder
+build
